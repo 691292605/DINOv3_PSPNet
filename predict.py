@@ -6,10 +6,8 @@ from PIL import Image
 from torchvision import transforms
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
-# 注意：请确保能正常导入你的模型
 from model import DINO_PSPNet
 
-# PASCAL VOC 标准调色板 (21类 RGB 颜色)
 VOC_COLORMAP = [
     [0, 0, 0], [128, 0, 0], [0, 128, 0], [128, 128, 0],
     [0, 0, 128], [128, 0, 128], [0, 128, 128], [128, 128, 128],
@@ -31,7 +29,7 @@ def decode_segmap(image_idx, colormap=VOC_COLORMAP):
     rgb = np.stack([r, g, b], axis=2)
     return rgb
 
-def visualize_multiple_predictions(image_paths, model_weight_path):
+def visualize_paper_style(image_paths, model_weight_path, save_format='svg'):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     print("正在加载模型和权重...")
@@ -46,10 +44,14 @@ def visualize_multiple_predictions(image_paths, model_weight_path):
     ])
 
     num_imgs = len(image_paths)
-    # 动态创建画布：N行 2列，每行高度设为5，宽度设为10
-    fig, axes = plt.subplots(nrows=num_imgs, ncols=2, figsize=(10, 5 * num_imgs))
+
+    fig, axes = plt.subplots(
+        nrows=num_imgs, 
+        ncols=2, 
+        figsize=(6, 3 * num_imgs),
+        gridspec_kw={'wspace': 0.04, 'hspace': 0.04}
+    )
     
-    # 如果只有1张图，axes是一维数组，为方便统一处理将其转为二维列表
     if num_imgs == 1:
         axes = [axes]
 
@@ -65,31 +67,29 @@ def visualize_multiple_predictions(image_paths, model_weight_path):
         pred_mask = torch.argmax(output.squeeze(0), dim=0).cpu().numpy()
         color_mask = decode_segmap(pred_mask)
 
-        # 获取文件名用于标题展示
-        img_name = os.path.basename(image_path)
-
-        # 绘制左侧：原图
         axes[i][0].imshow(original_img.resize((1024, 1024))) 
-        axes[i][0].set_title(f"Original: {img_name}")
         axes[i][0].axis('off')
-
-        # 绘制右侧：预测掩码
+        
         axes[i][1].imshow(color_mask)
-        axes[i][1].set_title(f"Prediction: {img_name}")
         axes[i][1].axis('off')
 
-    plt.tight_layout()
+
+    axes[-1][0].text(0.5, -0.1, "(a) Image", size=14, ha="center", transform=axes[-1][0].transAxes)
+    axes[-1][1].text(0.5, -0.1, "(b) Prediction", size=14, ha="center", transform=axes[-1][1].transAxes)
+
+    save_path = f"paper_figure.{save_format}"
+    plt.savefig(save_path, format=save_format, bbox_inches='tight', pad_inches=0.05)
+    
+    print(f"\n图片已保存为: {save_path}")
     plt.show()
 
 if __name__ == "__main__":
-    # 在这里放入你想要预测的多张图片的路径
     TEST_IMAGE_PATHS = [
         r'.\data\VOCdevkit\VOC2012\JPEGImages\2007_000904.jpg',
         r'.\data\VOCdevkit\VOC2012\JPEGImages\2010_003239.jpg',
-        r'.\data\VOCdevkit\VOC2012\JPEGImages\2012_002026.jpg'
+        r'.\data\VOCdevkit\VOC2012\JPEGImages\2008_008093.jpg'  
     ] 
     
-    WEIGHT_PATH = '50_dino_pspnet.pth'
+    WEIGHT_PATH = 'latest_dino_pspnet.pth'
     
-    # 确保传入的是列表
-    visualize_multiple_predictions(TEST_IMAGE_PATHS, WEIGHT_PATH)
+    visualize_paper_style(TEST_IMAGE_PATHS, WEIGHT_PATH, save_format='svg')
