@@ -53,7 +53,6 @@ def run_dino_diagnostic(img_path, weight_path):
     plt.axis('off')
 
     plt.show()
-    print("观察右图：如果有清晰的物体轮廓，说明 DINOv3 权重加载完美。")
 
 
 if __name__ == "__main__":
@@ -61,4 +60,5 @@ if __name__ == "__main__":
     WEIGHT_PATH = r'D:\lab\enter_test\dinov3_vits16_pretrain.pth'
 
     run_dino_diagnostic(IMG_PATH, WEIGHT_PATH)
+
 
