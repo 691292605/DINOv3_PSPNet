@@ -6,8 +6,8 @@
 
 | 方法 | mIoU | PA |
 |------|------|-----|
-| DINOv3 + PSPNet (基础版) | 84.18% | 96.75% |
-| DINOv3 + PSPNet (+ Skip Connection) | **85.15%** | **96.85%** |
+| DINOv3 + PSPNet | 84.18% | 96.75% |
+| DINOv3 + PSPNet + Skip Connection | **85.15%** | **96.85%** |
 
 ## 架构概述
 
