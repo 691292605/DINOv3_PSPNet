@@ -98,7 +98,7 @@ if __name__ == "__main__":
     model = DINO_PSPNet(num_classes=21)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
-    WEIGHT_PATH = r'D:\lab\enter_test\dinov3_vits16_pretrain.pth'
+    WEIGHT_PATH = r'./dinov3_vits16_pretrain.pth'
 
     dummy_input = torch.randn(2, 3, 512, 512)
     dummy_input = dummy_input.to(device)
