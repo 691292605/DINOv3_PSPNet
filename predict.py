@@ -86,6 +86,6 @@ def visualize_paper_style(image_paths, model_weight_path, save_format='svg'):
 if __name__ == "__main__":
     TEST_IMAGE_PATHS = [] #img_path
     
-    WEIGHT_PATH = '.\latest_dino_pspnet.pth'
+    WEIGHT_PATH = 'latest_dino_pspnet.pth'
     
     visualize_paper_style(TEST_IMAGE_PATHS, WEIGHT_PATH, save_format='svg')
