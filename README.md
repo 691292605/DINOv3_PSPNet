@@ -47,7 +47,7 @@ Input Image (1024×1024)
 
 ### 核心设计
 
-- **DINOv3 Backbone**：利用自监督预训练的 ViT 模型提取特征，冻结主干参数保护预训练表征
+- **DINOv3 Backbone**：利用自监督预训练的 Vision Transformer encoder 提取特征，冻结主干参数保护预训练表征
 - **Skip Connection**：从 DINOv3 浅层提取高分辨率边缘特征，与深层语义特征融合，显著改善分割边界质量
 - **PPM 模块**：金字塔池化模块 (1×1, 2×2, 3×3, 6×6)，聚合多尺度全局上下文信息
 
