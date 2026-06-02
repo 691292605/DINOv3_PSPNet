@@ -33,7 +33,7 @@ class VOCDataset(Dataset):
         return image_tensor, mask_tensor
     
 
-def voc_dataloaders(voc_root=r'.\\data\\VOCdevkit\\VOC2012', batch_size=4):
+def voc_dataloaders(voc_root=r'./data/VOCdevkit/VOC2012', batch_size=4):
     img_dir = os.path.join(voc_root, 'JPEGImages')
     mask_dir = os.path.join(voc_root, 'SegmentationClass')
     splits_dir = os.path.join(voc_root, 'ImageSets', 'Segmentation')
