@@ -84,12 +84,8 @@ def visualize_paper_style(image_paths, model_weight_path, save_format='svg'):
     plt.show()
 
 if __name__ == "__main__":
-    TEST_IMAGE_PATHS = [
-        r'.\data\VOCdevkit\VOC2012\JPEGImages\2007_000904.jpg',
-        r'.\data\VOCdevkit\VOC2012\JPEGImages\2010_003239.jpg',
-        r'.\data\VOCdevkit\VOC2012\JPEGImages\2008_008093.jpg'  
-    ] 
+    TEST_IMAGE_PATHS = [] #img_path
     
-    WEIGHT_PATH = 'latest_dino_pspnet.pth'
+    WEIGHT_PATH = '.\latest_dino_pspnet.pth'
     
     visualize_paper_style(TEST_IMAGE_PATHS, WEIGHT_PATH, save_format='svg')
