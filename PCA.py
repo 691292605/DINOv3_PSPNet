@@ -56,8 +56,8 @@ def run_dino_diagnostic(img_path, weight_path):
 
 
 if __name__ == "__main__":
-    IMG_PATH = r'D:\lab\enter_test\data\VOCdevkit\VOC2012\JPEGImages\2007_000904.jpg'
-    WEIGHT_PATH = r'D:\lab\enter_test\dinov3_vits16_pretrain.pth'
+    IMG_PATH = r'.\data\VOCdevkit\VOC2012\JPEGImages\2007_000904.jpg'
+    WEIGHT_PATH = r'.\dinov3_vits16_pretrain.pth'
 
     run_dino_diagnostic(IMG_PATH, WEIGHT_PATH)
 
